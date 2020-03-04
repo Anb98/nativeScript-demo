@@ -5,19 +5,48 @@
         </ActionBar>
 
         <GridLayout class="page__content">
-            <Label class="page__content-icon far" text.decode="&#xf1ea;"></Label>
+            <Button text='verificar' @tap='verifyFinger' />
             <Label class="page__content-placeholder" :text="message"></Label>
         </GridLayout>
     </Page>
 </template>
 
 <script>
+const fingerprintAuthPlugin = require("nativescript-fingerprint-auth");
+const fingerprintAuth = new fingerprintAuthPlugin.FingerprintAuth();
+
 export default {
+	mounted(){
+ 
+		fingerprintAuth.available()
+		.then((avail)=>{
+			console.log("Available? " + avail);
+		})
+		.catch(err => {
+			console.log('err :', err);
+		})
+	},
     data: () => {
         return {
-            message: "<!-- Browse page content goes here -->"
+            message: "AYUDAAAA"
         };
-    }
+	},
+	methods:{
+		verifyFinger(){
+			fingerprintAuth.verifyFingerprintWithCustomFallback({
+				message: 'Scan yer finger', // optional, shown in the fingerprint dialog (default: 'Scan your finger').
+				fallbackMessage: 'Enter PIN', // optional, the button label when scanning fails (default: 'Enter password').
+				authenticationValidityDuration: 10 // optional (used on Android, default 5)
+			}).then(() => {
+				console.log("Fingerprint was OK");
+				
+				}, error => {
+				// when error.code === -3, the user pressed the button labeled with your fallbackMessage
+				console.log("Fingerprint NOT OK. Error code: " + error.code + ". Error message: " + error.message);
+				}
+			);
+		}
+	}
 }
 </script>
 
