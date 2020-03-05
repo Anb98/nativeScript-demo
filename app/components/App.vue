@@ -17,13 +17,13 @@
 
         <TabContentItem>
             <Frame>
-                <Items />
+                <Camera />
             </Frame>
         </TabContentItem>
 
         <TabContentItem>
             <Frame>
-                <Browse />
+                <Varios />
             </Frame>
         </TabContentItem>
 
@@ -37,32 +37,17 @@
 </template>
 
 <script>
-import Items from "./Items.vue";
-import Browse from "./Browse.vue";
+import Camera from "./Camera.vue";
+import Varios from "./Varios.vue";
 import Search from "./Search.vue";
-const camera = require("nativescript-camera");
+
 
 export default {
-  components: {
-    Items,
-    Browse,
-    Search
-  },
-  mounted(){
-	  camera.requestPermissions()
-	  .then(
-    function success() {
-		alert('tengo permiso')
-	    // permission request accepted or already granted 
-        // ... call camera.takePicture here ...
-    }, 
-    function failure() {
-		alert('no tengo permiso')
-        // permission request rejected
-        // ... tell the user ...
-    }
-);
-  }
+	components: {
+		Camera,
+		Varios,
+		Search
+	},
 };
 </script>
 

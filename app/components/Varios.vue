@@ -4,10 +4,10 @@
             <Label text="Browse"></Label>
         </ActionBar>
 
-        <GridLayout class="page__content">
-            <Button text='verificar' @tap='verifyFinger' />
-            <Label class="page__content-placeholder" :text="message"></Label>
-        </GridLayout>
+        <StackLayout class="page__content">
+            <Button text='Solicitar fingerprint' @tap='verifyFinger' />
+			<YoutubePlayer src="8jrN6Kz2XbU" apiKey="AIzaSyCahkiPl1spejSjlMeCSf-_0nAj5QaGsfM"/>
+        </StackLayout>
     </Page>
 </template>
 
@@ -15,9 +15,9 @@
 const fingerprintAuthPlugin = require("nativescript-fingerprint-auth");
 const fingerprintAuth = new fingerprintAuthPlugin.FingerprintAuth();
 
+
 export default {
 	mounted(){
- 
 		fingerprintAuth.available()
 		.then((avail)=>{
 			console.log("Available? " + avail);
@@ -25,11 +25,6 @@ export default {
 		.catch(err => {
 			console.log('err :', err);
 		})
-	},
-    data: () => {
-        return {
-            message: "AYUDAAAA"
-        };
 	},
 	methods:{
 		verifyFinger(){
